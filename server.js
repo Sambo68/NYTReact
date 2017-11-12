@@ -16,19 +16,12 @@ app.use(routes);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-// MongoDB Configuration configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://");
-var db = mongoose.connection;
-
-db.on("error", function(err) {
-  console.log("Mongoose Error: ", err);
-});
-
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
-
-// -------------------------------------------------
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://heroku_1dgf53p8:ghlcumih8qea7ktsmau19cd6qt@ds257485.mlab.com:57485/heroku_1dgf53p8",
+  {
+    useMongoClient: true
+  }
+);
 
 // Start the API server
 app.listen(PORT, function() {
